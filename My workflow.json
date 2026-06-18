@@ -1,0 +1,634 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -208,
+        -16
+      ],
+      "id": "2af84b38-c4b2-4c9f-a05f-16423107c90e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://portfolio-two-beige-98.vercel.app/",
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        -16
+      ],
+      "id": "884cfa87-f379-448d-a96c-b30e5115dc3b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "=200",
+                    "rightValue": "200",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "bb9a6bfe-e477-4700-a951-67d1f2a8d769"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "OK"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "f231f580-fae4-4f8d-b083-64f2a0938a8e",
+                    "leftValue": "404",
+                    "rightValue": "404",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Not Found"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "98d021d8-17e6-4492-9657-3c267e85fc16",
+                    "leftValue": "500",
+                    "rightValue": "500",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Server Error"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "93c158b9-e1dd-4c67-806e-5c9bc1ea8799",
+                    "leftValue": "502",
+                    "rightValue": "502",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Bad Gateway"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "009b6181-5c64-4577-bf92-547357443747",
+                    "leftValue": "503",
+                    "rightValue": "503",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Service Unavailable"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "675c4404-1712-4d4e-913b-795ceb6db824",
+                    "leftValue": "None of above match",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Fallback"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        -16
+      ],
+      "id": "8b5c7289-d46a-4937-b9a5-0c00181811cf",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2a725227-2b70-4a68-ac72-3e671522d8eb",
+              "name": "status",
+              "value": "404 Not Found - Page Missing!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        464,
+        -224
+      ],
+      "id": "4a1c9577-69b5-4866-aeea-8b66f5385910",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "22696343-a846-4b76-8a91-5b73e7945b43",
+              "name": "status",
+              "value": "500 Server Error - Code Crashed!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        464,
+        -32
+      ],
+      "id": "d8f19c4f-6fdc-46a5-9362-c7b31e066ff0",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fac0e9bf-5147-4fd3-afeb-eadf7634644d",
+              "name": "status",
+              "value": "502 Bad Gateway - Server Overload!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        160
+      ],
+      "id": "9ecb9bf9-7927-42ff-8bb1-7ef64af35c40",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "67d6991c-5768-45b0-b9e3-ac9150d5d7da",
+              "name": "status",
+              "value": "503 Service Unavailable!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        384
+      ],
+      "id": "81bc72a9-282c-4aff-bbb2-c42e7533b872",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "03278769-c1db-46db-abc8-1f3fb55d8fe7",
+              "name": "status",
+              "value": "Website Completely OFFLINE!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        592
+      ],
+      "id": "7aba4a95-e184-4256-bb51-359e5ebcf413",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "sendTo": "hamzaazam2076@gmail.com",
+        "subject": "Website is Working Fine",
+        "emailType": "text",
+        "message": "Hey Hamza, your portfolio website is UP and running smoothly! Status Code: 200 OK. I'll keep monitoring every 5 minutes. Thanks!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        -432
+      ],
+      "id": "28fc10c7-586e-41e6-83c3-ceb93b6ab533",
+      "name": "Send a message",
+      "webhookId": "252ef78e-f2bf-410f-9331-ac2b30328a9b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LpsHD6VMgbFA6Bgx",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hamzaazam2076@gmail.com",
+        "subject": " 404 Not Found - Page Missing!",
+        "emailType": "text",
+        "message": "Hey Hamza, ALERT: Your portfolio returned a 404 ERROR! The page was not found. Possible causes: Page deleted, Wrong URL, Broken link, Routing issue. Please check your links and Vercel deployment settings. Thanks!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -224
+      ],
+      "id": "f7675e38-7357-442a-ab2d-6d026952d96c",
+      "name": "Send a message1",
+      "webhookId": "b545f8a5-73d9-4956-9edd-48acb7696b7c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LpsHD6VMgbFA6Bgx",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hamzaazam2076@gmail.com",
+        "subject": " 500 Server Error - Code Crashed!",
+        "emailType": "text",
+        "message": "Hey Hamza, CRITICAL: Your portfolio has a 500 INTERNAL SERVER ERROR! Possible causes: Code bug, Database connection failed, Out of memory, Missing env vars. Please check Vercel logs immediately and look for recent code changes. This is URGENT! Thanks!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -32
+      ],
+      "id": "8b31ff66-30e7-4a1e-9b70-57764e79dcb2",
+      "name": "Send a message2",
+      "webhookId": "8df30263-2f65-4204-aa78-fecba72574e0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LpsHD6VMgbFA6Bgx",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hamzaazam2076@gmail.com",
+        "subject": "502 Bad Gateway - Server Overload!",
+        "emailType": "text",
+        "message": "Hey Hamza, ALERT: Your portfolio returned a 502 BAD GATEWAY ERROR! Possible causes: Server overloaded, Backend down, CDN issue, DNS problem. Please check Vercel status page and monitor traffic spikes. Thanks!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        160
+      ],
+      "id": "5763c2e1-fec6-483e-9ffb-1c02e521579b",
+      "name": "Send a message3",
+      "webhookId": "f560abe2-f67a-4cb0-b616-136141ab2032",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LpsHD6VMgbFA6Bgx",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hamzaazam2076@gmail.com",
+        "subject": "503 Service Unavailable!",
+        "emailType": "text",
+        "message": "Hey Hamza, ALERT: Your portfolio returned a 503 ERROR! Possible causes: Maintenance, Rate limiting, Capacity exceeded, Deployment in progress. Please check your maintenance schedule and Vercel deployment status. Thanks!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        384
+      ],
+      "id": "0fcb9c8a-6a56-441c-bb19-23f09c2277ea",
+      "name": "Send a message4",
+      "webhookId": "f92fa0f1-973f-4710-a855-53d25568934e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LpsHD6VMgbFA6Bgx",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hamzaazam2076@gmail.com",
+        "subject": "Website Completely OFFLINE!",
+        "emailType": "text",
+        "message": "Hey Hamza, CRITICAL: Your portfolio is COMPLETELY OFFLINE! No response from server. Possible causes: Server crashed, DNS issue, Hosting outage, SSL expired, Domain expired. Please check Vercel dashboard immediately and verify domain hasn't expired. MOST URGENT! Thanks!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        592
+      ],
+      "id": "dfaecbf1-7846-4090-bb19-27e7f946e6c1",
+      "name": "Send a message5",
+      "webhookId": "0dd33a39-1434-40b2-8d25-ca87d3df9939",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LpsHD6VMgbFA6Bgx",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "550ff7eb-892d-4955-a3a6-c4677b9bef88",
+              "name": "status",
+              "value": "Website is Working Fine",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        -432
+      ],
+      "id": "13d8e2bd-544d-4af8-92bc-d34cc26bd4db",
+      "name": "Fields_OK"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Fields_OK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Send a message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Send a message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Send a message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fields_OK": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5cd13811-a04c-4523-8719-fe15cedacd4d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05204cbf42e6c4713e2d5ff711beccfe07d2c01a16394731c0b59870e8141b4e"
+  },
+  "nodeGroups": [],
+  "id": "adzBEB3qawpf9l4o",
+  "tags": []
+}
