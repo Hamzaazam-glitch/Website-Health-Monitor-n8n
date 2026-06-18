@@ -25,8 +25,9 @@ The system automatically detects downtime and server issues, ensuring website ow
 📝 Customizable email templates
 🏗 Workflow Architecture
 
+## 🏗 Workflow Architecture
 
-
+```text
 Schedule Trigger
         │
         ▼
@@ -43,8 +44,7 @@ Switch (Status Code Check)
  ▼      ▼      ▼      ▼      ▼      ▼
 
 Edit Fields → Gmail Alert
-
-
+```
 
 📊 Status Handling
 Status Code	Description	Action
