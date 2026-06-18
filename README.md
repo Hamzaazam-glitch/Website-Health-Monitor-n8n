@@ -24,6 +24,9 @@ The system automatically detects downtime and server issues, ensuring website ow
 ⚡ Real-time monitoring
 📝 Customizable email templates
 🏗 Workflow Architecture
+
+
+
 Schedule Trigger
         │
         ▼
@@ -40,6 +43,9 @@ Switch (Status Code Check)
  ▼      ▼      ▼      ▼      ▼      ▼
 
 Edit Fields → Gmail Alert
+
+
+
 📊 Status Handling
 Status Code	Description	Action
 200	Website Online	Success Email
